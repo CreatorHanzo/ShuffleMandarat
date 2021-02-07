@@ -1,5 +1,7 @@
 {
   "name": "InspirationApp",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "react"
 }

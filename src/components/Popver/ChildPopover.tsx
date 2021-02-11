@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { IonItem, IonPopover } from '@ionic/react'
+import { IonIcon, IonItem, IonPopover } from '@ionic/react'
+import { chevronForward, pencilOutline, trash } from 'ionicons/icons'
 
 export interface ChildPopoverProps {
     isOpen: boolean
@@ -32,6 +33,7 @@ export const ChildPopover: React.FC<ChildPopoverProps> = ({
                     moveChild()
                 }}
             >
+                <IonIcon icon={chevronForward}></IonIcon>
                 移動
             </IonItem>
             <IonItem
@@ -40,6 +42,7 @@ export const ChildPopover: React.FC<ChildPopoverProps> = ({
                     editChild()
                 }}
             >
+                <IonIcon icon={pencilOutline}></IonIcon>
                 編集
             </IonItem>
             <IonItem
@@ -48,6 +51,7 @@ export const ChildPopover: React.FC<ChildPopoverProps> = ({
                     deleteChild()
                 }}
             >
+                <IonIcon icon={trash}></IonIcon>
                 削除
             </IonItem>
         </IonPopover>

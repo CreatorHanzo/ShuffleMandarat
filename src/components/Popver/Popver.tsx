@@ -8,7 +8,6 @@ export interface PopverPops {
     parentId: number | undefined
     setShowPopover: () => void
     moveParent: () => void
-    deleteChild: () => void
     editParent: () => void
 }
 
@@ -19,7 +18,6 @@ export const Popver: React.FC<PopverPops> = ({
     setShowPopover,
     moveParent,
     editParent,
-    deleteChild,
 }) => {
     return (
         <IonPopover
@@ -44,14 +42,6 @@ export const Popver: React.FC<PopverPops> = ({
                 }}
             >
                 編集
-            </IonItem>
-            <IonItem
-                button
-                onClick={() => {
-                    deleteChild()
-                }}
-            >
-                削除
             </IonItem>
         </IonPopover>
     )

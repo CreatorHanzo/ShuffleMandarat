@@ -1,16 +1,13 @@
 import {
     IonAlert,
     IonButton,
-    IonCard,
-    IonCardContent,
     IonCol,
     IonContent,
-    IonFab,
-    IonFabButton,
     IonGrid,
     IonIcon,
-    IonPage,
     IonRow,
+    IonTitle,
+    IonToolbar,
 } from '@ionic/react'
 import React, { useEffect, useState } from 'react'
 import './Mandarat.scss'
@@ -85,7 +82,7 @@ export const Mandarat: React.FC<MandaratProps> = () => {
         const topParent: CellModel = {
             parentId: counter.mListReducer.parent.id,
             id: maxId,
-            text: '新しい要素',
+            text: 'New Element',
         }
         list1.push(topParent)
         await Storage.set({
@@ -186,14 +183,17 @@ export const Mandarat: React.FC<MandaratProps> = () => {
     }
     return (
         <IonContent className="mandarat-content">
+            <IonToolbar className="mardarat-toolbar" mode="ios">
+                <IonTitle>Mandarat</IonTitle>
+            </IonToolbar>
             <IonGrid className="mandarat-grid ion-no-padding">
                 <IonRow className="ion-no-padding">
                     {(() => {
                         if (counter.mListReducer.children[0]) {
                             return (
                                 <IonCol
-                                    id="animated-example"
-                                    className="animated flipInX text-col"
+                                    id="animated-example1"
+                                    className="animated text-col"
                                     key={0}
                                     onClick={(e: any) => {
                                         setSelecterId(
@@ -227,15 +227,21 @@ export const Mandarat: React.FC<MandaratProps> = () => {
                                 </IonCol>
                             )
                         } else {
-                            return <IonCol key={0}></IonCol>
+                            return (
+                                <IonCol
+                                    id="animated-example1"
+                                    className="animated"
+                                    key={0}
+                                ></IonCol>
+                            )
                         }
                     })()}
                     {(() => {
                         if (counter.mListReducer.children[1]) {
                             return (
                                 <IonCol
-                                    id="animated-example"
-                                    className="animated flipInX text-col"
+                                    id="animated-example2"
+                                    className="animated text-col"
                                     key={1}
                                     onClick={(e: any) => {
                                         setSelecterId(
@@ -269,7 +275,13 @@ export const Mandarat: React.FC<MandaratProps> = () => {
                                 </IonCol>
                             )
                         } else {
-                            return <IonCol key={1}></IonCol>
+                            return (
+                                <IonCol
+                                    id="animated-example2"
+                                    className="animated"
+                                    key={1}
+                                ></IonCol>
+                            )
                         }
                     })()}
                     {(() => {
@@ -277,7 +289,7 @@ export const Mandarat: React.FC<MandaratProps> = () => {
                             return (
                                 <IonCol
                                     id="animated-example"
-                                    className="animated flipInX text-col"
+                                    className="animated text-col"
                                     key={2}
                                     onClick={(e: any) => {
                                         setSelecterId(
@@ -311,7 +323,13 @@ export const Mandarat: React.FC<MandaratProps> = () => {
                                 </IonCol>
                             )
                         } else {
-                            return <IonCol key={2}></IonCol>
+                            return (
+                                <IonCol
+                                    id="animated-example3"
+                                    className="animated3"
+                                    key={2}
+                                ></IonCol>
+                            )
                         }
                     })()}
                 </IonRow>
@@ -320,8 +338,8 @@ export const Mandarat: React.FC<MandaratProps> = () => {
                         if (counter.mListReducer.children[3]) {
                             return (
                                 <IonCol
-                                    id="animated-example"
-                                    className="animated flipInX text-col"
+                                    id="animated-example4"
+                                    className="animated text-col"
                                     key={3}
                                     onClick={(e: any) => {
                                         setSelecterId(
@@ -355,12 +373,18 @@ export const Mandarat: React.FC<MandaratProps> = () => {
                                 </IonCol>
                             )
                         } else {
-                            return <IonCol key={3}></IonCol>
+                            return (
+                                <IonCol
+                                    id="animated-example4"
+                                    className="animated"
+                                    key={3}
+                                ></IonCol>
+                            )
                         }
                     })()}
                     <IonCol
-                        id="animated-example"
-                        className="animated flipInX parent-col"
+                        id="animated-example5"
+                        className="animated parent-col"
                         key={10}
                         onClick={(e: any) => {
                             let parent
@@ -411,16 +435,13 @@ export const Mandarat: React.FC<MandaratProps> = () => {
                         editParent={() => {
                             setShowAlert(true)
                         }}
-                        deleteChild={() => {
-                            setPopup(true)
-                        }}
                     />
                     {(() => {
                         if (counter.mListReducer.children[4]) {
                             return (
                                 <IonCol
                                     id="animated-example"
-                                    className="animated flipInX text-col"
+                                    className="animated6 text-col"
                                     key={4}
                                     onClick={(e: any) => {
                                         setSelecterId(
@@ -454,7 +475,13 @@ export const Mandarat: React.FC<MandaratProps> = () => {
                                 </IonCol>
                             )
                         } else {
-                            return <IonCol key={4}></IonCol>
+                            return (
+                                <IonCol
+                                    id="animated-example6"
+                                    className="animated"
+                                    key={4}
+                                ></IonCol>
+                            )
                         }
                     })()}
                 </IonRow>
@@ -463,8 +490,8 @@ export const Mandarat: React.FC<MandaratProps> = () => {
                         if (counter.mListReducer.children[5]) {
                             return (
                                 <IonCol
-                                    id="animated-example"
-                                    className="animated flipInX text-col"
+                                    id="animated-example7"
+                                    className="animated text-col"
                                     key={5}
                                     onClick={(e: any) => {
                                         setSelecterId(
@@ -498,15 +525,21 @@ export const Mandarat: React.FC<MandaratProps> = () => {
                                 </IonCol>
                             )
                         } else {
-                            return <IonCol key={5}></IonCol>
+                            return (
+                                <IonCol
+                                    id="animated-example7"
+                                    className="animated"
+                                    key={5}
+                                ></IonCol>
+                            )
                         }
                     })()}
                     {(() => {
                         if (counter.mListReducer.children[6]) {
                             return (
                                 <IonCol
-                                    id="animated-example"
-                                    className="animated flipInX text-col"
+                                    id="animated-example8"
+                                    className="animated text-col"
                                     key={6}
                                     onClick={(e: any) => {
                                         setSelecterId(
@@ -540,7 +573,13 @@ export const Mandarat: React.FC<MandaratProps> = () => {
                                 </IonCol>
                             )
                         } else {
-                            return <IonCol key={6}></IonCol>
+                            return (
+                                <IonCol
+                                    id="animated-example8"
+                                    className="animated"
+                                    key={6}
+                                ></IonCol>
+                            )
                         }
                     })()}
                     {(() => {
@@ -548,7 +587,7 @@ export const Mandarat: React.FC<MandaratProps> = () => {
                             return (
                                 <IonCol
                                     id="animated-example"
-                                    className="animated flipInX text-col"
+                                    className="animated text-col"
                                     key={7}
                                     onClick={(e: any) => {
                                         setSelecterId(
@@ -581,7 +620,13 @@ export const Mandarat: React.FC<MandaratProps> = () => {
                                 </IonCol>
                             )
                         } else {
-                            return <IonCol key={7}></IonCol>
+                            return (
+                                <IonCol
+                                    id="animated-example9"
+                                    className="animated"
+                                    key={7}
+                                ></IonCol>
+                            )
                         }
                     })()}
                 </IonRow>
@@ -597,6 +642,19 @@ export const Mandarat: React.FC<MandaratProps> = () => {
                     }}
                     moveChild={() => {
                         console.log('移動')
+                        for (let i = 1; i <= 8; i++) {
+                            // const ae = document.getElementById(`animated-example${i}`);
+                            document
+                                .getElementById(`animated-example${i}`)
+                                ?.classList.add('flipInX2')
+                            document
+                                .getElementById(`animated-example${i}`)
+                                ?.addEventListener('animationend', () => {
+                                    document
+                                        .getElementById(`animated-example${i}`)
+                                        ?.classList.remove('flipInX2')
+                                })
+                        }
                         let moveChildren: Array<CellModel> = []
                         list1.forEach((child) => {
                             if (child.parentId === moveChild?.id) {
@@ -619,15 +677,13 @@ export const Mandarat: React.FC<MandaratProps> = () => {
                         setShowAlert(true)
                     }}
                     deleteChild={async () => {
-                        console.log('削除', list1)
-                        console.log('削除id', selectedId)
                         setPopup(true)
                     }}
                 />
                 <Popup
                     name="name"
                     isOpen={popup}
-                    header="配下の要素も削除されますがよろしいですか？"
+                    header="直下の要素も削除されますがよろしいですか？"
                     buttonText1="キャンセル"
                     buttonText2="削除"
                     showAlert={() => {

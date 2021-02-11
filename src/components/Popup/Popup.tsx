@@ -1,7 +1,6 @@
 import React from 'react'
 import { IonAlert } from '@ionic/react'
 import './Popup.scss'
-import { Plugins } from '@capacitor/core'
 export interface PopupProps {
     name: string
     isOpen: boolean

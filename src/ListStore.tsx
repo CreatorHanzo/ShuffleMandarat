@@ -41,7 +41,7 @@ export const addReduce = (
     const topParent: CellModel = {
         parentId: action.parentId,
         id: action.maxId,
-        text: '新しい要素',
+        text: 'New Mandarat',
     }
     let newList = state.slice()
     newList.push(topParent)

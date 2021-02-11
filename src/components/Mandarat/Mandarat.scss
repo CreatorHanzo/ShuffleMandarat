@@ -1,14 +1,44 @@
+.animated { 
+    animation-duration: 1s; 
+    animation-fill-mode: both; 
+} 
+
+@keyframes flipInX2 { 
+   0% { 
+       transform: perspective(400px) rotateX(90deg); 
+       opacity: 0; 
+   } 
+   40% { 
+       transform: perspective(400px) rotateX(-10deg); 
+   } 
+   70% { 
+       transform: perspective(400px) rotateX(10deg); 
+   } 
+   100% { 
+       transform: perspective(400px) rotateX(0deg); 
+       opacity: 1; 
+   } 
+} 
+.flipInX2{
+   backface-visibility: visible !important; 
+   animation-name: flipInX2; 
+}
 .mandarat-content{
+    ion-title{
+        font-weight: bolder;
+        color:white;
+    background-color: #20948B;
+    }
     .mandarat-grid{
         padding: 0;
         font-family: Noto Sans JP;
         font-weight: 500;
         margin: 0;
+        margin-top: 3.5rem;
         
         ion-grid{
             position: relative;
             z-index: 3;
-            
         }
         
         ion-row{
@@ -37,21 +67,16 @@
         }
         
         .text-col{
-            // display: table-cell;
-            // vertical-align: middle;
             border-radius: 0.3rem;
             box-shadow: 0 0 0.3rem #20948B;
-            // border: solid 1px;
             background-color: white;
             text-align: center;
         }
         .parent-col{
             border-radius: 0.3rem;
             box-shadow: 0 0 0.3rem #20948B;
-            // border: solid 1px;
             background-color: white;
             text-align: center;
-            
         }
     }
 }

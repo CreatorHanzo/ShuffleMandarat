@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { connect, useSelector, useDispatch } from 'react-redux'
 import {
     IonPage,
-    IonList,
     IonItem,
     IonContent,
     IonButton,
@@ -14,17 +13,14 @@ import {
     IonRow,
     IonCol,
     IonIcon,
-    IonFab,
-    IonFabButton,
     IonToolbar,
 } from '@ionic/react'
 import './Tab2.scss'
 import { CellModel } from '../models/CellModel'
-import { reloadOutline, shuffleOutline } from 'ionicons/icons'
+import { shuffleOutline } from 'ionicons/icons'
 import { Plugins } from '@capacitor/core'
 const { Storage } = Plugins
 let list1: Array<CellModel> = []
-// let newArray: Array<CellModel> = []
 const numList: number[] = [2, 3, 4, 5, 6, 7, 8, 9]
 
 const Tab2: React.FC = () => {
@@ -42,6 +38,20 @@ const Tab2: React.FC = () => {
     const randomSelect = (array: Array<CellModel>, num: number) => {
         const copyArray = [...array]
         dispatch({ type: 'createRandomlist', originList: copyArray, num: num })
+
+        for (let i = 1; i <= showNumber; i++) {
+            // const ae = document.getElementById(`animated-example${i}`);
+            document
+                .getElementById(`animated-example${i}`)
+                ?.classList.add('flipInX2')
+            document
+                .getElementById(`animated-example${i}`)
+                ?.addEventListener('animationend', () => {
+                    document
+                        .getElementById(`animated-example${i}`)
+                        ?.classList.remove('flipInX2')
+                })
+        }
     }
 
     const initialize = async () => {
@@ -66,9 +76,9 @@ const Tab2: React.FC = () => {
                         randomSelect(list1, e.detail.value)
                     }}
                 >
-                    {numList.map((value: React.ReactNode) => {
+                    {numList.map((value: React.ReactNode, i) => {
                         return (
-                            <IonSelectOption value={value}>
+                            <IonSelectOption value={value} key={i.toString()}>
                                 {value}
                             </IonSelectOption>
                         )
@@ -82,37 +92,49 @@ const Tab2: React.FC = () => {
                             if (random.randomListReducer[0]) {
                                 return (
                                     <IonCol
-                                        id="animated-example"
-                                        className="animated flipInX text-col"
+                                        id="animated-example1"
+                                        className="animated text-col"
                                         key={0}
                                     >
                                         {random.randomListReducer[0].text}
                                     </IonCol>
                                 )
                             } else {
-                                return <IonCol key={0}></IonCol>
+                                return (
+                                    <IonCol
+                                        id="animated-example1"
+                                        className="animated"
+                                        key={0}
+                                    ></IonCol>
+                                )
                             }
                         })()}
                         {(() => {
                             if (random.randomListReducer[1]) {
                                 return (
                                     <IonCol
-                                        id="animated-example"
-                                        className="animated flipInX text-col"
+                                        id="animated-example2"
+                                        className="animated text-col"
                                         key={1}
                                     >
                                         {random.randomListReducer[1].text}
                                     </IonCol>
                                 )
                             } else {
-                                return <IonCol key={1}></IonCol>
+                                return (
+                                    <IonCol
+                                        id="animated-example2"
+                                        className="animated"
+                                        key={1}
+                                    ></IonCol>
+                                )
                             }
                         })()}
                         {(() => {
                             if (random.randomListReducer[2]) {
                                 return (
                                     <IonCol
-                                        id="animated-example"
+                                        id="animated-example3"
                                         className="animated flipInX text-col"
                                         key={2}
                                     >
@@ -120,7 +142,13 @@ const Tab2: React.FC = () => {
                                     </IonCol>
                                 )
                             } else {
-                                return <IonCol key={2}></IonCol>
+                                return (
+                                    <IonCol
+                                        id="animated-example3"
+                                        className="animated"
+                                        key={2}
+                                    ></IonCol>
+                                )
                             }
                         })()}
                     </IonRow>
@@ -129,7 +157,7 @@ const Tab2: React.FC = () => {
                             if (random.randomListReducer[3]) {
                                 return (
                                     <IonCol
-                                        id="animated-example"
+                                        id="animated-example4"
                                         className="animated flipInX text-col"
                                         key={3}
                                     >
@@ -137,14 +165,20 @@ const Tab2: React.FC = () => {
                                     </IonCol>
                                 )
                             } else {
-                                return <IonCol key={3}></IonCol>
+                                return (
+                                    <IonCol
+                                        id="animated-example4"
+                                        className="animated"
+                                        key={3}
+                                    ></IonCol>
+                                )
                             }
                         })()}
                         {(() => {
                             if (random.randomListReducer[4]) {
                                 return (
                                     <IonCol
-                                        id="animated-example"
+                                        id="animated-example5"
                                         className="animated flipInX text-col"
                                         key={4}
                                     >
@@ -152,14 +186,20 @@ const Tab2: React.FC = () => {
                                     </IonCol>
                                 )
                             } else {
-                                return <IonCol key={4}></IonCol>
+                                return (
+                                    <IonCol
+                                        id="animated-example5"
+                                        className="animated"
+                                        key={4}
+                                    ></IonCol>
+                                )
                             }
                         })()}
                         {(() => {
                             if (random.randomListReducer[5]) {
                                 return (
                                     <IonCol
-                                        id="animated-example"
+                                        id="animated-example6"
                                         className="animated flipInX text-col"
                                         key={5}
                                     >
@@ -167,7 +207,13 @@ const Tab2: React.FC = () => {
                                     </IonCol>
                                 )
                             } else {
-                                return <IonCol key={5}></IonCol>
+                                return (
+                                    <IonCol
+                                        id="animated-example6"
+                                        className="animated"
+                                        key={5}
+                                    ></IonCol>
+                                )
                             }
                         })()}
                     </IonRow>
@@ -176,7 +222,7 @@ const Tab2: React.FC = () => {
                             if (random.randomListReducer[6]) {
                                 return (
                                     <IonCol
-                                        id="animated-example"
+                                        id="animated-example7"
                                         className="animated flipInX text-col"
                                         key={6}
                                     >
@@ -184,14 +230,20 @@ const Tab2: React.FC = () => {
                                     </IonCol>
                                 )
                             } else {
-                                return <IonCol key={6}></IonCol>
+                                return (
+                                    <IonCol
+                                        id="animated-example7"
+                                        className="animated"
+                                        key={6}
+                                    ></IonCol>
+                                )
                             }
                         })()}
                         {(() => {
                             if (random.randomListReducer[7]) {
                                 return (
                                     <IonCol
-                                        id="animated-example"
+                                        id="animated-example8"
                                         className="animated flipInX text-col"
                                         key={7}
                                     >
@@ -199,14 +251,20 @@ const Tab2: React.FC = () => {
                                     </IonCol>
                                 )
                             } else {
-                                return <IonCol key={7}></IonCol>
+                                return (
+                                    <IonCol
+                                        id="animated-example8"
+                                        className="animated"
+                                        key={7}
+                                    ></IonCol>
+                                )
                             }
                         })()}
                         {(() => {
                             if (random.randomListReducer[8]) {
                                 return (
                                     <IonCol
-                                        id="animated-example"
+                                        id="animated-example9"
                                         className="animated flipInX text-col"
                                         key={8}
                                     >
@@ -214,20 +272,17 @@ const Tab2: React.FC = () => {
                                     </IonCol>
                                 )
                             } else {
-                                return <IonCol key={8}></IonCol>
+                                return (
+                                    <IonCol
+                                        id="animated-example9"
+                                        className="animated"
+                                        key={8}
+                                    ></IonCol>
+                                )
                             }
                         })()}
                     </IonRow>
                 </IonGrid>
-
-                {/* <IonFab vertical="bottom" horizontal="center" slot="fixed">
-                    <IonFabButton
-                        className="reload-button"
-                        onClick={() => randomSelect(list1, showNumber)}
-                    >
-                        <IonIcon icon={reloadOutline} size="large" />
-                    </IonFabButton>
-                </IonFab> */}
             </IonContent>
             <IonButton
                 className="shuffle-button"

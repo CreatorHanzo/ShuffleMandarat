@@ -24,7 +24,7 @@ const addTopParent = async () => {
     const topParent: CellModel = {
         parentId: 0,
         id: maxId,
-        text: '新しい要素',
+        text: 'New Mandarat',
     }
     await Storage.set({
         key: 'topParent',

@@ -1,35 +1,27 @@
-/* #animated-example { 
-    background: #cd4436; 
-    height: 200px; 
-    margin: 20px auto; 
-    width: 300px; 
-    box-shadow: inset 0 0 7px rgba(0,0,0,0.7); 
- }
-  */
   .animated { 
-     animation-duration: 2s; 
+     animation-duration: 1s; 
      animation-fill-mode: both; 
  } 
  
- @keyframes flipInX { 
-     0% { 
-         transform: perspective(400px) rotateX(90deg); 
-         opacity: 0; 
-     } 
-     40% { 
-         transform: perspective(400px) rotateX(-10deg); 
-     } 
-     70% { 
-         transform: perspective(400px) rotateX(10deg); 
-     } 
-     100% { 
-         transform: perspective(400px) rotateX(0deg); 
-         opacity: 1; 
-     } 
- } 
- .flipInX { 
-     backface-visibility: visible !important; 
-     animation-name: flipInX; 
+ @keyframes flipInX2 { 
+    0% { 
+        transform: perspective(400px) rotateX(90deg); 
+        opacity: 0; 
+    } 
+    40% { 
+        transform: perspective(400px) rotateX(-10deg); 
+    } 
+    70% { 
+        transform: perspective(400px) rotateX(10deg); 
+    } 
+    100% { 
+        transform: perspective(400px) rotateX(0deg); 
+        opacity: 1; 
+    } 
+} 
+ .flipInX2{
+    backface-visibility: visible !important; 
+    animation-name: flipInX2; 
  }
 .shuffle-page{
     .shuffle-tool-bar{
@@ -61,6 +53,7 @@
         border-left:solid 0.3rem #20948B;
     }
 } 
+
 .random-list-grid{
     --background: white;
     font-family: Noto Sans JP;
@@ -104,7 +97,6 @@
         background-color: white;
         text-align: center;
     }
-
 }
 .reload-button{
     --background: #20948B;

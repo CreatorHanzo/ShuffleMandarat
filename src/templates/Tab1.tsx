@@ -4,7 +4,6 @@ import {
     IonPage,
     IonList,
     IonContent,
-    IonFab,
     IonFabButton,
     IonIcon,
     IonModal,
@@ -15,22 +14,16 @@ import {
     IonItemOption,
     IonItemOptions,
     IonItemSliding,
-    IonHeader,
     IonTitle,
     IonToolbar,
 } from '@ionic/react'
-import {
-    add,
-    chevronForwardOutline,
-    removeOutline,
-    trash,
-} from 'ionicons/icons'
-import CellList from '../components/CellList/CellList'
+import { add, chevronForwardOutline, trash } from 'ionicons/icons'
 import Mandart from '../components/Mandarat/Mandarat'
 import './Tab1.scss'
 import { CellModel } from '../models/CellModel'
 import { Plugins } from '@capacitor/core'
 import { useDispatch, useSelector } from 'react-redux'
+import Popup from '../components/Popup/Popup'
 const { Storage } = Plugins
 
 let list1: Array<CellModel> = []
@@ -39,11 +32,11 @@ const Tab1: React.FC = () => {
     const [list, setList] = useState<Array<CellModel>>([])
     const [searchText, setSearchText] = useState('')
     const [showModal, setShowModal] = useState(false)
-    const [children, setChildren] = useState<Array<CellModel>>([])
     const [showAlert, setShowAlert] = useState(false)
     const [name, setName] = useState('')
     const [index, setIndex] = useState(0)
-    const [parent, setParent] = useState<CellModel>(list1[0])
+    const [popup, setPopup] = useState(false)
+    const [selectedId, setSelectedId] = useState<number>()
 
     const counter = useSelector(
         (state: {
@@ -84,7 +77,7 @@ const Tab1: React.FC = () => {
         const topParent: CellModel = {
             parentId: 0,
             id: maxId,
-            text: '新しい要素',
+            text: 'New Mandarat',
         }
         list1.push(topParent)
 
@@ -93,10 +86,28 @@ const Tab1: React.FC = () => {
             value: JSON.stringify(list1),
         })
         dispatch({ type: 'ADD', parentId: 0, maxId: maxId })
-        // list1.push({ id: maxId, text: 'a' })
         const listd1 = [...list]
         console.log(listd1)
         setList(listd1)
+    }
+    const deleteChild = async (deleteId: number | undefined) => {
+        dispatch({
+            type: 'DELETE',
+            list: list1,
+            delIndex: deleteId,
+        })
+
+        for (let i = list1.length - 1; i >= 0; i--) {
+            if (deleteId === list1[i].parentId) {
+                await deleteChild(list1[i].id)
+                list1.splice(i, 1)
+            }
+        }
+        await Storage.set({
+            key: 'allCell',
+            value: JSON.stringify(list1),
+        })
+        setList(list1)
     }
 
     return (
@@ -126,30 +137,8 @@ const Tab1: React.FC = () => {
                                             <IonItemOption
                                                 color="danger"
                                                 onClick={async () => {
-                                                    dispatch({
-                                                        type: 'DELETE',
-                                                        list: list1,
-                                                        delIndex: i,
-                                                    })
-                                                    for (
-                                                        let i = 0;
-                                                        i < list1.length;
-                                                        i++
-                                                    ) {
-                                                        if (
-                                                            value.id ===
-                                                            list1[i].id
-                                                        ) {
-                                                            list1.splice(i, 1)
-                                                        }
-                                                    }
-                                                    await Storage.set({
-                                                        key: 'allCell',
-                                                        value: JSON.stringify(
-                                                            list1
-                                                        ),
-                                                    })
-                                                    setList(list1)
+                                                    setSelectedId(value.id)
+                                                    setPopup(true)
                                                 }}
                                             >
                                                 <IonIcon
@@ -173,7 +162,6 @@ const Tab1: React.FC = () => {
                                                 size="small"
                                                 className="item-fab-button"
                                                 onClick={() => {
-                                                    setParent(value)
                                                     let children1: Array<CellModel> = []
                                                     list1.forEach((child) => {
                                                         if (
@@ -185,7 +173,6 @@ const Tab1: React.FC = () => {
                                                             )
                                                         }
                                                     })
-                                                    setChildren(children1)
                                                     dispatch({
                                                         type: 'moveChild',
                                                         parent: value,
@@ -231,6 +218,25 @@ const Tab1: React.FC = () => {
                 <IonIcon slot="start" icon={add} />
                 Add new Mandarat
             </IonButton>
+            <Popup
+                name="name"
+                isOpen={popup}
+                header="直下の要素も削除されますがよろしいですか？"
+                buttonText1="キャンセル"
+                buttonText2="削除"
+                showAlert={() => {
+                    setPopup(false)
+                }}
+                processing={async () => {
+                    for (let i = list1.length - 1; i >= 0; i--) {
+                        if (selectedId === list1[i].id) {
+                            list1.splice(i, 1)
+                        }
+                    }
+                    await deleteChild(selectedId)
+                    console.log('削除')
+                }}
+            />
             <IonAlert
                 isOpen={showAlert}
                 onDidDismiss={() => setShowAlert(false)}

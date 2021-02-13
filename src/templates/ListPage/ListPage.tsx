@@ -17,7 +17,6 @@ export interface ListPageProps {
 // }
 
 const printValue = async (value: string) => {
-    console.log(value)
     await Storage.set({
         key: 'item',
         value: JSON.stringify({
@@ -25,7 +24,6 @@ const printValue = async (value: string) => {
         }),
     })
     const ret = await Storage.get({ key: 'item' })
-    console.log(JSON.parse(ret.value!).value)
 }
 
 export const ListPage: React.FC<ListPageProps> = ({ list }) => {

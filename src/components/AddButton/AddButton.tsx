@@ -30,10 +30,6 @@ const addTopParent = async () => {
         key: 'topParent',
         value: JSON.stringify(topParent),
     })
-
-    // const debugTP = await Storage.get({ key: 'topParent' })
-    // console.log('debugTP', JSON.parse(debugTP.value!))
-
     // 全ての要素を格納している配列を更新
     let allCell: Array<CellModel> = []
     const allCellStr = await Storage.get({ key: 'allCell' })
@@ -45,9 +41,6 @@ const addTopParent = async () => {
         key: 'allCell',
         value: JSON.stringify(allCell),
     })
-
-    const debugAC = await Storage.get({ key: 'allCell' })
-    console.log('debugAC', JSON.parse(debugAC.value!))
 }
 
 export const AddButton: React.FC<AddButtonProps> = () => {

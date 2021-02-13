@@ -105,11 +105,8 @@ export const createRandomList = (
 ) => {
     let randomList = []
     while (randomList.length < action.num && action.originList.length > 0) {
-        // 配列からランダムな要素を選ぶ
         const rand = Math.floor(Math.random() * action.originList.length)
-        // 選んだ要素を別の配列に登録する
         randomList.push(action.originList[rand])
-        // もとの配列からは削除する
         action.originList.splice(rand, 1)
     }
     return randomList

@@ -30,8 +30,6 @@ const Tab2: React.FC = () => {
     )
     const dispatch = useDispatch()
     useEffect(() => {
-        console.log('レンダリングした(ホーム)')
-        console.log('更新後', random.randomListReducer)
         initialize()
     })
 
@@ -59,7 +57,6 @@ const Tab2: React.FC = () => {
 
         if (JSON.parse(allCellStr.value!)) {
             list1 = JSON.parse(allCellStr.value!)
-            console.log('list1', list1)
         }
     }
     return (

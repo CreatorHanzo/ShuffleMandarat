@@ -47,7 +47,6 @@ const Tab1: React.FC = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        console.log('レンダリングした(ホーム)')
         initialize()
     })
 
@@ -61,7 +60,6 @@ const Tab1: React.FC = () => {
     const addTopParent = async () => {
         // 現状のmaxId+1を設定する
         const maxIdStr = await Storage.get({ key: 'maxId' })
-        console.log('追加前のmaxId', JSON.parse(maxIdStr.value!))
         let maxId = 1
         if (JSON.parse(maxIdStr.value!)) {
             maxId = JSON.parse(maxIdStr.value!) + 1
@@ -85,7 +83,6 @@ const Tab1: React.FC = () => {
         })
         dispatch({ type: 'ADD', parentId: 0, maxId: maxId })
         const listd1 = [...list]
-        console.log(listd1)
         setList(listd1)
     }
     const deleteChild = async (deleteId: number | undefined) => {
@@ -176,10 +173,6 @@ const Tab1: React.FC = () => {
                                                         parent: value,
                                                         children: children1,
                                                     })
-                                                    console.log(
-                                                        '子要素へ移動',
-                                                        counter.listReducer
-                                                    )
                                                     setShowModal(true)
                                                 }}
                                             >
@@ -254,9 +247,7 @@ const Tab1: React.FC = () => {
                         text: 'Cancel',
                         role: 'cancel',
                         cssClass: 'secondary',
-                        handler: () => {
-                            console.log('Confirm Cancel')
-                        },
+                        handler: () => {},
                     },
                     {
                         text: 'Ok',
@@ -264,7 +255,6 @@ const Tab1: React.FC = () => {
                             list1[index].text = data.name
                             // setList(list1)
                             dispatch({ type: 'CHANGE', list: list1 })
-                            console.log('変更後', counter.mListReducer.children)
                             await Storage.set({
                                 key: 'allCell',
                                 value: JSON.stringify(list1),

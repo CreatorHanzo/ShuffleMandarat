@@ -47,6 +47,7 @@ const Tab1: React.FC = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
+        console.log(counter)
         initialize()
     })
 
@@ -58,7 +59,6 @@ const Tab1: React.FC = () => {
     }
 
     const addTopParent = async () => {
-        // 現状のmaxId+1を設定する
         const maxIdStr = await Storage.get({ key: 'maxId' })
         let maxId = 1
         if (JSON.parse(maxIdStr.value!)) {

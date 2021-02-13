@@ -34,7 +34,6 @@ export const Mandarat: React.FC<MandaratProps> = () => {
         event: undefined,
     })
     const [selectedId, setSelecterId] = useState<number>()
-    // const [newList, setNewList] = useState<Array<CellModel>>([])
     const [moveChild, setmoveChild] = useState<CellModel>()
     const [popup, setPopup] = useState(false)
     const [showAlert, setShowAlert] = useState(false)
@@ -50,6 +49,7 @@ export const Mandarat: React.FC<MandaratProps> = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
+        console.log(list)
         initialize()
     })
     const initialize = async () => {

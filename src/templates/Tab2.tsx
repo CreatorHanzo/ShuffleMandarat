@@ -68,7 +68,7 @@ const Tab2: React.FC = () => {
                 <IonTitle>SHUFFLE</IonTitle>
             </IonToolbar>
             <IonItem lines="none" className="ion-no-padding ion-item-select">
-                <IonLabel>表示する数</IonLabel>
+                <IonLabel>表示数</IonLabel>
                 <IonSelect
                     value={showNumber}
                     onIonChange={(e) => {

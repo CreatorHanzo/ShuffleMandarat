@@ -53,10 +53,8 @@ const Tab1: React.FC = () => {
 
     const initialize = async () => {
         const allCellStr = await Storage.get({ key: 'allCell' })
-
         if (JSON.parse(allCellStr.value!)) {
             list1 = JSON.parse(allCellStr.value!)
-            console.log('list1', list1)
         }
     }
 
@@ -234,7 +232,6 @@ const Tab1: React.FC = () => {
                         }
                     }
                     await deleteChild(selectedId)
-                    console.log('削除')
                 }}
             />
             <IonAlert

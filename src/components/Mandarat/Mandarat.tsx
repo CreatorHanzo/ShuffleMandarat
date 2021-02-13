@@ -40,6 +40,8 @@ export const Mandarat: React.FC<MandaratProps> = () => {
     const [showAlert, setShowAlert] = useState(false)
     const [name, setName] = useState('')
     const [index, setIndex] = useState(0)
+    const [list, setList] = useState<Array<CellModel>>([])
+
     const counter = useSelector(
         (state: {
             mListReducer: { parent: CellModel; children: Array<CellModel> }
@@ -49,8 +51,6 @@ export const Mandarat: React.FC<MandaratProps> = () => {
 
     useEffect(() => {
         console.log('レンダリングした(マンダラート)')
-        console.log(counter.mListReducer.children)
-
         initialize()
     })
     const initialize = async () => {
@@ -109,17 +109,41 @@ export const Mandarat: React.FC<MandaratProps> = () => {
         console.log(counter.mListReducer.children)
     }
 
-    const deleteChild = async () => {
+    // const deleteChild = async () => {
+    //     dispatch({
+    //         type: 'deleteChild',
+    //         list: counter.mListReducer.children,
+    //         delIndex: selectedId,
+    //     })
+    //     for (let i = list1.length - 1; i >= 0; i--) {
+    //         if (
+    //             selectedId === list1[i].parentId ||
+    //             selectedId === list1[i].id
+    //         ) {
+    //             list1.splice(i, 1)
+    //         }
+    //     }
+    //     await Storage.set({
+    //         key: 'allCell',
+    //         value: JSON.stringify(list1),
+    //     })
+    //     setChildShowPopover({
+    //         showPopover: false,
+    //         event: undefined,
+    //     })
+    //     if (selectedId === counter.mListReducer.parent.id) {
+    //         moveParent()
+    //     }
+    // }
+    const deleteChild = async (deleteId: number | undefined) => {
         dispatch({
-            type: 'deleteChild',
-            list: counter.mListReducer.children,
-            delIndex: selectedId,
+            type: 'DELETE',
+            list: list1,
+            delIndex: deleteId,
         })
         for (let i = list1.length - 1; i >= 0; i--) {
-            if (
-                selectedId === list1[i].parentId ||
-                selectedId === list1[i].id
-            ) {
+            if (deleteId === list1[i].parentId) {
+                await deleteChild(list1[i].id)
                 list1.splice(i, 1)
             }
         }
@@ -127,13 +151,7 @@ export const Mandarat: React.FC<MandaratProps> = () => {
             key: 'allCell',
             value: JSON.stringify(list1),
         })
-        setChildShowPopover({
-            showPopover: false,
-            event: undefined,
-        })
-        if (selectedId === counter.mListReducer.parent.id) {
-            moveParent()
-        }
+        setList(list1)
     }
     const editChild = async () => {
         await Storage.set({
@@ -690,7 +708,21 @@ export const Mandarat: React.FC<MandaratProps> = () => {
                         setPopup(false)
                     }}
                     processing={async () => {
-                        await deleteChild()
+                        for (let i = list1.length - 1; i >= 0; i--) {
+                            if (selectedId === list1[i].id) {
+                                list1.splice(i, 1)
+                            }
+                        }
+                        await deleteChild(selectedId)
+                        dispatch({
+                            type: 'deleteChild',
+                            list: counter.mListReducer.children,
+                            delIndex: selectedId,
+                        })
+                        setChildShowPopover({
+                            showPopover: false,
+                            event: undefined,
+                        })
                     }}
                 />
                 <IonAlert
@@ -727,16 +759,6 @@ export const Mandarat: React.FC<MandaratProps> = () => {
                     ]}
                 />
             </IonGrid>
-
-            {/* <IonFab vertical="bottom" horizontal="center" slot="fixed">
-                <IonFabButton
-                    onClick={addChild}
-                    disabled={counter.mListReducer.children.length >= 8}
-                    className="add-child"
-                >
-                    <IonIcon icon={add} />
-                </IonFabButton>
-            </IonFab> */}
             <IonButton
                 className="add-element"
                 shape="round"

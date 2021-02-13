@@ -1,5 +1,5 @@
 {
-  "appId": "io.shufflemandarat.starter",
+  "appId": "shufflemandarat",
   "appName": "InspirationApp",
   "bundledWebRuntime": false,
   "npmClient": "npm",

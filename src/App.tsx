@@ -13,6 +13,7 @@ import { IonReactRouter } from '@ionic/react-router'
 import { home, shuffle } from 'ionicons/icons'
 import Tab1 from './templates/Tab1'
 import Tab2 from './templates/Tab2'
+import Tab3 from './templates/Tab3'
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css'
@@ -38,7 +39,7 @@ const App: React.FC = () => (
         <IonReactRouter>
             <IonTabs>
                 <IonRouterOutlet>
-                    <Route path="/home" component={Tab1} exact={true} />
+                    <Route path="/home" component={Tab3} exact={true} />
                     <Route path="/shuffle" component={Tab2} exact={true} />
                     <Route
                         path="/"

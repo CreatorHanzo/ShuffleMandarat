@@ -194,7 +194,6 @@ const Tab1: React.FC = () => {
                 cssClass="my-custom-class"
                 onDidDismiss={() => setShowModal(false)}
             >
-                {/* <CustomMandarat parent={parent} list={children} /> */}
                 <Mandart />
                 <IonButton fill="clear" onClick={() => setShowModal(false)}>
                     Back Home

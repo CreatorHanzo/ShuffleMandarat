@@ -17,7 +17,7 @@ import {
     IonTitle,
     IonToolbar,
 } from '@ionic/react'
-import { add, chevronForwardOutline, trash } from 'ionicons/icons'
+import { add, chevronBack, chevronForwardOutline, trash } from 'ionicons/icons'
 import Mandart from '../components/Mandarat/Mandarat'
 import './Tab1.scss'
 import { CellModel } from '../models/CellModel'
@@ -26,7 +26,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Popup from '../components/Popup/Popup'
 const { Storage } = Plugins
 
-let list1: Array<CellModel> = []
+let list1: Array<CellModel> = [];
 
 const Tab1: React.FC = () => {
     const [list, setList] = useState<Array<CellModel>>([])
@@ -48,7 +48,7 @@ const Tab1: React.FC = () => {
 
     useEffect(() => {
         console.log(counter)
-        initialize()
+        initialize();
     })
 
     const initialize = async () => {
@@ -73,7 +73,7 @@ const Tab1: React.FC = () => {
         const topParent: CellModel = {
             parentId: 0,
             id: maxId,
-            text: 'New Mandarat',
+            text: 'New',
         }
         list1.push(topParent)
 
@@ -115,10 +115,9 @@ const Tab1: React.FC = () => {
                     className="list-search-bar ion-no-padding"
                     value={searchText}
                     onIonChange={(e) => setSearchText(e.detail.value!)}
-                    type="tel"
+                    type="text"
                 ></IonSearchbar>
             </IonItem>
-
             <IonContent className="tab1-content">
                 <IonList>
                     {
@@ -196,7 +195,8 @@ const Tab1: React.FC = () => {
             >
                 <Mandart />
                 <IonButton fill="clear" onClick={() => setShowModal(false)}>
-                    Back Home
+                    <IonIcon slot="start" icon={chevronBack} />
+                    Home
                 </IonButton>
             </IonModal>
             <IonButton
@@ -206,7 +206,7 @@ const Tab1: React.FC = () => {
                 onClick={addTopParent}
             >
                 <IonIcon slot="start" icon={add} />
-                Add new Mandarat
+                Add Mandarat
             </IonButton>
             <Popup
                 name="name"
@@ -252,7 +252,6 @@ const Tab1: React.FC = () => {
                         text: 'Ok',
                         handler: async (data) => {
                             list1[index].text = data.name
-                            // setList(list1)
                             dispatch({ type: 'CHANGE', list: list1 })
                             await Storage.set({
                                 key: 'allCell',

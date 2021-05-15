@@ -38,16 +38,15 @@ const Tab2: React.FC = () => {
         dispatch({ type: 'createRandomlist', originList: copyArray, num: num })
 
         for (let i = 1; i <= showNumber; i++) {
-            // const ae = document.getElementById(`animated-example${i}`);
             document
                 .getElementById(`animated-example${i}`)
-                ?.classList.add('flipInX2')
+                ?.classList.add('fadeIn')
             document
                 .getElementById(`animated-example${i}`)
                 ?.addEventListener('animationend', () => {
                     document
                         .getElementById(`animated-example${i}`)
-                        ?.classList.remove('flipInX2')
+                        ?.classList.remove('fadeIn')
                 })
         }
     }

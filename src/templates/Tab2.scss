@@ -2,27 +2,48 @@
      animation-duration: 1s; 
      animation-fill-mode: both; 
  } 
- 
- @keyframes flipInX2 { 
-    0% { 
-        transform: perspective(400px) rotateX(90deg); 
-        opacity: 0; 
-    } 
-    40% { 
-        transform: perspective(400px) rotateX(-10deg); 
-    } 
-    70% { 
-        transform: perspective(400px) rotateX(10deg); 
-    } 
-    100% { 
-        transform: perspective(400px) rotateX(0deg); 
-        opacity: 1; 
-    } 
-} 
- .flipInX2{
-    backface-visibility: visible !important; 
-    animation-name: flipInX2; 
- }
+ .fadeIn{
+	animation-name: fadeIn;
+	-webkit-animation-name: fadeIn;	
+
+	animation-duration: 0.8s;	
+	-webkit-animation-duration: 0.8s;
+
+	animation-timing-function: ease-in-out;	
+	-webkit-animation-timing-function: ease-in-out;		
+
+	visibility: visible !important;	
+}
+
+@keyframes fadeIn {
+	0% {
+		transform: scale(0);
+		opacity: 0.0;		
+	}
+	100% {
+		transform: scale(1);
+		opacity: 1;	
+	}		
+}
+
+@-webkit-keyframes fadeIn {
+	0% {
+		-webkit-transform: scale(0);
+		opacity: 0.0;		
+	}
+	60% {
+		-webkit-transform: scale(1.1);
+	}
+	80% {
+		-webkit-transform: scale(0.9);
+		opacity: 1;	
+	}	
+	100% {
+		-webkit-transform: scale(1);
+		opacity: 1;	
+	}		
+}
+
 .shuffle-page{
     .shuffle-tool-bar{
         --background: #20948B;
@@ -34,6 +55,8 @@
 
     .shuffle-button{
         --background: #20948B;
+        --background-hover: #74dad1;
+        --background-hover-opacity: 0.5;
     position: absolute;
     bottom: 0%;
     left: 50%;
@@ -51,6 +74,10 @@
         border-right:solid 0.3rem #20948B;
         border-top:solid 0.3rem #20948B;
         border-left:solid 0.3rem #20948B;
+        .no-message{
+            text-align: center;
+            --font-family: "Segoe UI"
+        }
     }
 } 
 

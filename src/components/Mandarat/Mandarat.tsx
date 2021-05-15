@@ -5,6 +5,7 @@ import {
     IonContent,
     IonGrid,
     IonIcon,
+    IonModal,
     IonRow,
     IonTitle,
     IonToolbar,
@@ -17,7 +18,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Popver } from '../Popver/Popver'
 import { ChildPopover } from '../Popver/ChildPopover'
 import { Popup } from '../Popup/Popup'
-import { add } from 'ionicons/icons'
+import { add, chevronBack, chevronForward } from 'ionicons/icons'
+import { M99 } from '../M99/M99'
 
 const { Storage } = Plugins
 let list1: Array<CellModel> = []
@@ -40,10 +42,11 @@ export const Mandarat: React.FC<MandaratProps> = () => {
     const [name, setName] = useState('')
     const [index, setIndex] = useState(0)
     const [list, setList] = useState<Array<CellModel>>([])
-
     const counter = useSelector(
         (state: {
             mListReducer: { parent: CellModel; children: Array<CellModel> }
+            m99creator: Array<{ parent: CellModel; children: Array<CellModel> }>
+            modal99Reducer: boolean
         }) => state
     )
     const dispatch = useDispatch()
@@ -81,22 +84,19 @@ export const Mandarat: React.FC<MandaratProps> = () => {
         const topParent: CellModel = {
             parentId: counter.mListReducer.parent.id,
             id: maxId,
-            text: 'New Element',
+            text: '',
         }
         list1.push(topParent)
         await Storage.set({
             key: 'allCell',
             value: JSON.stringify(list1),
         })
-
         let children1: Array<CellModel> = []
-
         list1.forEach((child) => {
             if (child.parentId === counter.mListReducer.parent.id) {
                 children1.push(child)
             }
         })
-
         // カスタムマンダラートで表示する要素を更新
         // これがないと、値を編集しても画面が更新されない
         dispatch({
@@ -174,6 +174,65 @@ export const Mandarat: React.FC<MandaratProps> = () => {
             <IonToolbar className="mardarat-toolbar" mode="ios">
                 <IonTitle>Mandarat</IonTitle>
             </IonToolbar>
+            <IonButton
+                fill="clear"
+                expand="full"
+                onClick={() => {
+                    let list99: Array<{
+                        parent: CellModel
+                        children: Array<CellModel>
+                    }> = []
+                    for (let i = 0; i < 8; i++) {
+                        if (counter.mListReducer.children[i]) {
+                            let children1: Array<CellModel> = []
+                            list1.forEach((child) => {
+                                if (
+                                    child.parentId ===
+                                    counter.mListReducer.children[i].id
+                                ) {
+                                    children1.push(child)
+                                }
+                            })
+                            list99.push({
+                                parent: counter.mListReducer.children[i],
+                                children: children1,
+                            })
+                        } else {
+                            list99.push()
+                        }
+                    }
+                    console.log(counter.modal99Reducer)
+                    dispatch({ type: 'm99create', list99: list99 })
+                    dispatch({
+                        type: 'modal99Show',
+                    })
+                }}
+            >
+                <IonIcon slot="end" icon={chevronForward} />
+                9×9
+            </IonButton>
+            <IonModal
+                isOpen={counter.modal99Reducer}
+                cssClass="my-custom-class"
+                onDidDismiss={() => {
+                    dispatch({
+                        type: 'modal99Colse',
+                    })
+                }}
+            >
+                <IonButton
+                    fill="clear"
+                    onClick={() =>
+                        dispatch({
+                            type: 'modal99Colse',
+                        })
+                    }
+                >
+                    <IonIcon slot="start" icon={chevronBack} />
+                    3×3
+                </IonButton>
+                <M99 />
+            </IonModal>
             <IonGrid className="mandarat-grid ion-no-padding">
                 <IonRow className="ion-no-padding">
                     {(() => {
@@ -190,7 +249,6 @@ export const Mandarat: React.FC<MandaratProps> = () => {
                                         setmoveChild(
                                             counter.mListReducer.children[0]
                                         )
-
                                         setName(
                                             counter.mListReducer.children[0]
                                                 .text
@@ -238,7 +296,6 @@ export const Mandarat: React.FC<MandaratProps> = () => {
                                         setmoveChild(
                                             counter.mListReducer.children[1]
                                         )
-
                                         setName(
                                             counter.mListReducer.children[1]
                                                 .text
@@ -394,11 +451,8 @@ export const Mandarat: React.FC<MandaratProps> = () => {
                                 }
                             })
                             setmoveChild(parent)
-
-                            // if (counter.mListReducer.parent.parentId !== 0) {
                             e.persist()
                             setShowPopover({ showPopover: true, event: e })
-                            // }
                         }}
                     >
                         {counter.mListReducer.parent.text}
@@ -728,10 +782,11 @@ export const Mandarat: React.FC<MandaratProps> = () => {
                 className="add-element"
                 shape="round"
                 mode="ios"
+                disabled={counter.mListReducer.children.length >= 8}
                 onClick={addChild}
             >
                 <IonIcon slot="start" icon={add} />
-                Add new element
+                Add element
             </IonButton>
         </IonContent>
     )

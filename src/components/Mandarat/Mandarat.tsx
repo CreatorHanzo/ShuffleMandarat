@@ -208,7 +208,7 @@ export const Mandarat: React.FC<MandaratProps> = () => {
                 }}
             >
                 <IonIcon slot="end" icon={chevronForward} />
-                9×9
+                9 × 9
             </IonButton>
             <IonModal
                 isOpen={counter.modal99Reducer}
@@ -228,7 +228,7 @@ export const Mandarat: React.FC<MandaratProps> = () => {
                     }
                 >
                     <IonIcon slot="start" icon={chevronBack} />
-                    3×3
+                    3 × 3
                 </IonButton>
                 <M99 />
             </IonModal>

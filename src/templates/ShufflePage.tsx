@@ -19,7 +19,7 @@ import {
 } from '@ionic/react'
 import { add, chevronBack, chevronForwardOutline, trash } from 'ionicons/icons'
 import Mandart from '../components/Mandarat/Mandarat'
-import './Tab1.scss'
+import './ShufflePage.scss'
 import { CellModel } from '../models/CellModel'
 import { Plugins } from '@capacitor/core'
 import { useDispatch, useSelector } from 'react-redux'
@@ -28,7 +28,7 @@ const { Storage } = Plugins
 
 let list1: Array<CellModel> = [];
 
-const Tab1: React.FC = () => {
+const ShufflePage: React.FC = () => {
     const [list, setList] = useState<Array<CellModel>>([])
     const [searchText, setSearchText] = useState('')
     const [showModal, setShowModal] = useState(false)
@@ -106,7 +106,7 @@ const Tab1: React.FC = () => {
     }
 
     return (
-        <IonPage className="tab1-page">
+        <IonPage className="ShufflePage-page">
             <IonToolbar className="list-toolbar" mode="ios">
                 <IonTitle>HOME</IonTitle>
             </IonToolbar>
@@ -118,7 +118,7 @@ const Tab1: React.FC = () => {
                     type="text"
                 ></IonSearchbar>
             </IonItem>
-            <IonContent className="tab1-content">
+            <IonContent className="ShufflePage-content">
                 <IonList>
                     {
                         // eslint-disable-next-line array-callback-return
@@ -265,4 +265,4 @@ const Tab1: React.FC = () => {
     )
 }
 
-export default Tab1
+export default ShufflePage

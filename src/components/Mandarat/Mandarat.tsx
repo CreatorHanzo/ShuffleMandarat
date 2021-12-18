@@ -74,7 +74,6 @@ export const Mandarat: React.FC<MandaratProps> = () => {
             value: JSON.stringify(maxId),
         })
 
-        // Tab1画面がレンダリングされるためのdispatch、実際にこの値は使われていないかも
         dispatch({
             type: 'ADD',
             parentId: counter.mListReducer.parent.id,

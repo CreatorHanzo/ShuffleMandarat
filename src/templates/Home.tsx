@@ -15,7 +15,7 @@ import {
     IonIcon,
     IonToolbar,
 } from '@ionic/react'
-import './Tab2.scss'
+import './Home.scss'
 import { CellModel } from '../models/CellModel'
 import { shuffleOutline } from 'ionicons/icons'
 import { Plugins } from '@capacitor/core'
@@ -23,7 +23,7 @@ const { Storage } = Plugins
 let list1: Array<CellModel> = []
 const numList: number[] = [2, 3, 4, 5, 6, 7, 8, 9]
 
-const Tab2: React.FC = () => {
+const Home: React.FC = () => {
     const [showNumber, setShowNumber] = useState(9)
     const random = useSelector(
         (state: { randomListReducer: CellModel[] }) => state
@@ -293,4 +293,4 @@ const Tab2: React.FC = () => {
     )
 }
 
-export default connect((state) => state)(Tab2)
+export default connect((state) => state)(Home)

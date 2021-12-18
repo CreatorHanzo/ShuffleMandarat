@@ -4,6 +4,8 @@ const allData: {
     initList: Array<CellModel>
     mList: { parent: CellModel; children: Array<CellModel> }
     randomList: Array<CellModel>
+    m99list: Array<{ parent: CellModel; children: Array<CellModel> }>
+    modal99: boolean
 } = {
     initList: [],
     mList: {
@@ -11,6 +13,8 @@ const allData: {
         children: [],
     },
     randomList: [],
+    m99list: [],
+    modal99: false,
 }
 
 export const listReducer = (state = allData.initList, action: any) => {
@@ -41,7 +45,7 @@ export const addReduce = (
     const topParent: CellModel = {
         parentId: action.parentId,
         id: action.maxId,
-        text: 'New Mandarat',
+        text: 'New',
     }
     let newList = state.slice()
     newList.push(topParent)
@@ -105,12 +109,51 @@ export const createRandomList = (
 ) => {
     let randomList = []
     while (randomList.length < action.num && action.originList.length > 0) {
-        // 配列からランダムな要素を選ぶ
         const rand = Math.floor(Math.random() * action.originList.length)
-        // 選んだ要素を別の配列に登録する
         randomList.push(action.originList[rand])
-        // もとの配列からは削除する
         action.originList.splice(rand, 1)
     }
     return randomList
+}
+
+export const m99creator = (state = allData.m99list, action: any) => {
+    switch (action.type) {
+        case 'm99create':
+            return create99(state, action)
+        default:
+            return state
+    }
+}
+
+export const create99 = (
+    state: Array<{ parent: CellModel; children: Array<CellModel> }>,
+    action: {
+        list99: Array<{ parent: CellModel; children: Array<CellModel> }>
+    }
+) => {
+    let randomList = []
+    randomList = [...action.list99]
+    return randomList
+}
+
+export const modal99Reducer = (
+    state = allData.modal99,
+    action: { type: string }
+) => {
+    switch (action.type) {
+        case 'modal99Show':
+            return modal99Show(state, action)
+        case 'modal99Colse':
+            return modal99Close(state, action)
+        default:
+            return state
+    }
+}
+
+export const modal99Show = (state: boolean, action: { type: string }) => {
+    return true
+}
+
+export const modal99Close = (state: boolean, action: { type: string }) => {
+    return false
 }

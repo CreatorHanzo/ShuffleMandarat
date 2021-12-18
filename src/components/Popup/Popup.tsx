@@ -32,9 +32,7 @@ export const Popup: React.FC<PopupProps> = ({
                     {
                         text: buttonText1,
                         role: 'cancel',
-                        handler: () => {
-                            console.log('Confirm Cancel')
-                        },
+                        handler: () => {},
                     },
                     {
                         text: buttonText2,

@@ -1,0 +1,60 @@
+.grid1{
+    @media screen and (min-width:451px) { 
+        margin: 3px;
+    }
+    @media screen and (min-width:351px) and ( max-width:450px) { 
+        margin: 1px;
+    }
+    @media screen and (max-width:350px) { 
+        margin: 0.5px;
+    }
+    padding: 0;
+}
+.col{
+    border-radius: 0.3rem;
+    border: solid 1px  #00e2cf;
+    overflow:hidden;
+    @media screen and (min-width:451px) { 
+        font-size: 0.1rem !important;
+        height: 4rem !important;
+    }
+    @media screen and (min-width:351px) and ( max-width:450px) { 
+        font-size: 0.1rem !important;
+        height: 3rem !important;
+    }
+    @media screen and (max-width:350px) { 
+        font-size: 0.1rem !important;
+        height: 2.5rem !important;
+    }
+    word-break: break-all;
+}
+.parent{
+    overflow:hidden;
+    border-radius: 0.3rem;
+    border: solid 2.5px  #20948B;
+    @media screen and (min-width:451px) { 
+        font-size: 0.25rem !important;
+        height: 4rem !important;
+    }
+    @media screen and (min-width:351px) and ( max-width:450px) { 
+        font-size: 0.2rem !important;
+        height: 3rem !important;
+    }
+    @media screen and (max-width:350px) { 
+        font-size: 0.1rem !important;
+        height: 2.5rem !important;
+    }
+    word-break: break-all;
+}
+
+.nocol{
+    @media screen and (min-width:451px) { 
+        height: 4rem !important;
+    }
+    @media screen and (min-width:351px) and ( max-width:450px) { 
+        height: 3rem !important;
+    }
+    @media screen and (max-width:350px) { 
+        height: 2.5rem !important;
+    }
+}

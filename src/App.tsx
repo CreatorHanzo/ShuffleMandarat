@@ -11,9 +11,8 @@ import {
 } from '@ionic/react'
 import { IonReactRouter } from '@ionic/react-router'
 import { home, shuffle } from 'ionicons/icons'
-import Tab1 from './templates/Tab1'
-import Tab2 from './templates/Tab2'
-import Tab3 from './templates/Tab3'
+import ShufflePage from './templates/ShufflePage'
+import Home from './templates/Home'
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css'
@@ -39,22 +38,22 @@ const App: React.FC = () => (
         <IonReactRouter>
             <IonTabs>
                 <IonRouterOutlet>
-                    <Route path="/home" component={Tab3} exact={true} />
-                    <Route path="/shuffle" component={Tab2} exact={true} />
+                    <Route path="/home" component={ShufflePage} exact={true} />
+                    <Route path="/shuffle" component={Home} exact={true} />
                     <Route
                         path="/"
-                        render={() => <Redirect to="/home" />}
+                        render={() => <Redirect to="/shuffle" />}
                         exact={true}
                     />
                 </IonRouterOutlet>
                 <IonTabBar slot="bottom">
-                    <IonTabButton tab="home" href="/home">
-                        <IonIcon icon={home} />
-                        <IonLabel>home</IonLabel>
-                    </IonTabButton>
                     <IonTabButton tab="shuffle" href="/shuffle">
                         <IonIcon icon={shuffle} />
                         <IonLabel>shuffle</IonLabel>
+                    </IonTabButton>
+                    <IonTabButton tab="home" href="/home">
+                        <IonIcon icon={home} />
+                        <IonLabel>home</IonLabel>
                     </IonTabButton>
                 </IonTabBar>
             </IonTabs>

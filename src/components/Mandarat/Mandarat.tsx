@@ -5,6 +5,7 @@ import {
     IonContent,
     IonGrid,
     IonIcon,
+    IonModal,
     IonRow,
     IonTitle,
     IonToolbar,
@@ -17,7 +18,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Popver } from '../Popver/Popver'
 import { ChildPopover } from '../Popver/ChildPopover'
 import { Popup } from '../Popup/Popup'
-import { add } from 'ionicons/icons'
+import { add, chevronBack, chevronForward } from 'ionicons/icons'
+import { M99 } from '../M99/M99'
 
 const { Storage } = Plugins
 let list1: Array<CellModel> = []
@@ -34,23 +36,23 @@ export const Mandarat: React.FC<MandaratProps> = () => {
         event: undefined,
     })
     const [selectedId, setSelecterId] = useState<number>()
-    // const [newList, setNewList] = useState<Array<CellModel>>([])
     const [moveChild, setmoveChild] = useState<CellModel>()
     const [popup, setPopup] = useState(false)
     const [showAlert, setShowAlert] = useState(false)
     const [name, setName] = useState('')
     const [index, setIndex] = useState(0)
     const [list, setList] = useState<Array<CellModel>>([])
-
     const counter = useSelector(
         (state: {
             mListReducer: { parent: CellModel; children: Array<CellModel> }
+            m99creator: Array<{ parent: CellModel; children: Array<CellModel> }>
+            modal99Reducer: boolean
         }) => state
     )
     const dispatch = useDispatch()
 
     useEffect(() => {
-        console.log('レンダリングした(マンダラート)')
+        console.log(list)
         initialize()
     })
     const initialize = async () => {
@@ -72,7 +74,6 @@ export const Mandarat: React.FC<MandaratProps> = () => {
             value: JSON.stringify(maxId),
         })
 
-        // Tab1画面がレンダリングされるためのdispatch、実際にこの値は使われていないかも
         dispatch({
             type: 'ADD',
             parentId: counter.mListReducer.parent.id,
@@ -82,23 +83,19 @@ export const Mandarat: React.FC<MandaratProps> = () => {
         const topParent: CellModel = {
             parentId: counter.mListReducer.parent.id,
             id: maxId,
-            text: 'New Element',
+            text: '',
         }
         list1.push(topParent)
         await Storage.set({
             key: 'allCell',
             value: JSON.stringify(list1),
         })
-
-        console.log(counter.mListReducer.children)
         let children1: Array<CellModel> = []
-
         list1.forEach((child) => {
             if (child.parentId === counter.mListReducer.parent.id) {
                 children1.push(child)
             }
         })
-
         // カスタムマンダラートで表示する要素を更新
         // これがないと、値を編集しても画面が更新されない
         dispatch({
@@ -106,35 +103,8 @@ export const Mandarat: React.FC<MandaratProps> = () => {
             parent: counter.mListReducer.parent,
             children: children1,
         })
-        console.log(counter.mListReducer.children)
     }
 
-    // const deleteChild = async () => {
-    //     dispatch({
-    //         type: 'deleteChild',
-    //         list: counter.mListReducer.children,
-    //         delIndex: selectedId,
-    //     })
-    //     for (let i = list1.length - 1; i >= 0; i--) {
-    //         if (
-    //             selectedId === list1[i].parentId ||
-    //             selectedId === list1[i].id
-    //         ) {
-    //             list1.splice(i, 1)
-    //         }
-    //     }
-    //     await Storage.set({
-    //         key: 'allCell',
-    //         value: JSON.stringify(list1),
-    //     })
-    //     setChildShowPopover({
-    //         showPopover: false,
-    //         event: undefined,
-    //     })
-    //     if (selectedId === counter.mListReducer.parent.id) {
-    //         moveParent()
-    //     }
-    // }
     const deleteChild = async (deleteId: number | undefined) => {
         dispatch({
             type: 'DELETE',
@@ -197,13 +167,71 @@ export const Mandarat: React.FC<MandaratProps> = () => {
             parent: moveChild,
             children: moveChildren,
         })
-        console.log('移動後', counter.mListReducer.children)
     }
     return (
         <IonContent className="mandarat-content">
             <IonToolbar className="mardarat-toolbar" mode="ios">
                 <IonTitle>Mandarat</IonTitle>
             </IonToolbar>
+            <IonButton
+                fill="clear"
+                expand="full"
+                onClick={() => {
+                    let list99: Array<{
+                        parent: CellModel
+                        children: Array<CellModel>
+                    }> = []
+                    for (let i = 0; i < 8; i++) {
+                        if (counter.mListReducer.children[i]) {
+                            let children1: Array<CellModel> = []
+                            list1.forEach((child) => {
+                                if (
+                                    child.parentId ===
+                                    counter.mListReducer.children[i].id
+                                ) {
+                                    children1.push(child)
+                                }
+                            })
+                            list99.push({
+                                parent: counter.mListReducer.children[i],
+                                children: children1,
+                            })
+                        } else {
+                            list99.push()
+                        }
+                    }
+                    console.log(counter.modal99Reducer)
+                    dispatch({ type: 'm99create', list99: list99 })
+                    dispatch({
+                        type: 'modal99Show',
+                    })
+                }}
+            >
+                <IonIcon slot="end" icon={chevronForward} />
+                9 × 9
+            </IonButton>
+            <IonModal
+                isOpen={counter.modal99Reducer}
+                cssClass="my-custom-class"
+                onDidDismiss={() => {
+                    dispatch({
+                        type: 'modal99Colse',
+                    })
+                }}
+            >
+                <IonButton
+                    fill="clear"
+                    onClick={() =>
+                        dispatch({
+                            type: 'modal99Colse',
+                        })
+                    }
+                >
+                    <IonIcon slot="start" icon={chevronBack} />
+                    3 × 3
+                </IonButton>
+                <M99 />
+            </IonModal>
             <IonGrid className="mandarat-grid ion-no-padding">
                 <IonRow className="ion-no-padding">
                     {(() => {
@@ -220,7 +248,6 @@ export const Mandarat: React.FC<MandaratProps> = () => {
                                         setmoveChild(
                                             counter.mListReducer.children[0]
                                         )
-
                                         setName(
                                             counter.mListReducer.children[0]
                                                 .text
@@ -268,7 +295,6 @@ export const Mandarat: React.FC<MandaratProps> = () => {
                                         setmoveChild(
                                             counter.mListReducer.children[1]
                                         )
-
                                         setName(
                                             counter.mListReducer.children[1]
                                                 .text
@@ -424,11 +450,8 @@ export const Mandarat: React.FC<MandaratProps> = () => {
                                 }
                             })
                             setmoveChild(parent)
-
-                            // if (counter.mListReducer.parent.parentId !== 0) {
                             e.persist()
                             setShowPopover({ showPopover: true, event: e })
-                            // }
                         }}
                     >
                         {counter.mListReducer.parent.text}
@@ -659,7 +682,6 @@ export const Mandarat: React.FC<MandaratProps> = () => {
                         })
                     }}
                     moveChild={() => {
-                        console.log('移動')
                         for (let i = 1; i <= 8; i++) {
                             // const ae = document.getElementById(`animated-example${i}`);
                             document
@@ -679,13 +701,11 @@ export const Mandarat: React.FC<MandaratProps> = () => {
                                 moveChildren.push(child)
                             }
                         })
-                        console.log(moveChild, 'に移動する')
                         dispatch({
                             type: 'moveChild',
                             parent: moveChild,
                             children: moveChildren,
                         })
-                        console.log('孫要素へ移動', counter.mListReducer)
                         setChildShowPopover({
                             showPopover: false,
                             event: undefined,
@@ -745,9 +765,7 @@ export const Mandarat: React.FC<MandaratProps> = () => {
                             text: 'Cancel',
                             role: 'cancel',
                             cssClass: 'secondary',
-                            handler: () => {
-                                console.log('Confirm Cancel')
-                            },
+                            handler: () => {},
                         },
                         {
                             text: 'Ok',
@@ -763,10 +781,11 @@ export const Mandarat: React.FC<MandaratProps> = () => {
                 className="add-element"
                 shape="round"
                 mode="ios"
+                disabled={counter.mListReducer.children.length >= 8}
                 onClick={addChild}
             >
                 <IonIcon slot="start" icon={add} />
-                Add new element
+                Add element
             </IonButton>
         </IonContent>
     )

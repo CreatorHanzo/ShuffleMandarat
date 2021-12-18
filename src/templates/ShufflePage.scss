@@ -1,0 +1,40 @@
+.ShufflePage-page{
+    
+.list-toolbar{
+    --background:#20948B;
+}
+.list-search-item{
+    border:solid 0.3rem #20948B;
+    
+.list-search-bar{
+    --box-shadow: 0;
+}
+}
+    ion-title{
+        font-weight: bolder;
+        color:white;
+    }
+    .item-fab-button{
+    --background:#20948B;
+    }
+}
+.add-button{
+    --background: #20948B;
+    --background-hover: #74dad1;
+    --background-hover-opacity: 0.5;
+    position: absolute;
+    bottom: 0%;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    -webkit-transform: translate(-50%, 0%);
+    -ms-transform: translate(-50%, 0%);
+}
+.ShufflePage-content{
+    border-right:solid 0.3rem #20948B;
+	border-top:solid 0.3rem #20948B;
+	border-left:solid 0.3rem #20948B;
+}
+.my-custom-class{
+    --height: 100%;
+    --width:100%
+}

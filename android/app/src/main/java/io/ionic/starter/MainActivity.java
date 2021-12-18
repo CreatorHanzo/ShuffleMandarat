@@ -1,4 +1,4 @@
-package io.ionic.starter;
+package io.shufflemandarat.starter;
 
 import android.os.Bundle;
 

@@ -58,6 +58,7 @@
   "description": "An Ionic project",
   "devDependencies": {
     "@capacitor/cli": "2.4.5",
+    "@ionic/lab": "3.2.10",
     "@storybook/addon-actions": "^6.1.11",
     "@storybook/addon-essentials": "^6.1.11",
     "@storybook/addon-links": "^6.1.11",

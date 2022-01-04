@@ -1,130 +1,40 @@
-  .animated { 
-     animation-duration: 1s; 
-     animation-fill-mode: both; 
- } 
- .fadeIn{
-	animation-name: fadeIn;
-	-webkit-animation-name: fadeIn;	
-
-	animation-duration: 0.8s;	
-	-webkit-animation-duration: 0.8s;
-
-	animation-timing-function: ease-in-out;	
-	-webkit-animation-timing-function: ease-in-out;		
-
-	visibility: visible !important;	
+.ShufflePage-page{
+    
+.list-toolbar{
+    --background:#20948B;
 }
-
-@keyframes fadeIn {
-	0% {
-		transform: scale(0);
-		opacity: 0.0;		
-	}
-	100% {
-		transform: scale(1);
-		opacity: 1;	
-	}		
+.list-search-item{
+    border:solid 0.3rem #20948B;
+    
+.list-search-bar{
+    --box-shadow: 0;
 }
-
-@-webkit-keyframes fadeIn {
-	0% {
-		-webkit-transform: scale(0);
-		opacity: 0.0;		
-	}
-	60% {
-		-webkit-transform: scale(1.1);
-	}
-	80% {
-		-webkit-transform: scale(0.9);
-		opacity: 1;	
-	}	
-	100% {
-		-webkit-transform: scale(1);
-		opacity: 1;	
-	}		
 }
-
-.shuffle-page{
-    .shuffle-tool-bar{
-        --background: #20948B;
-        ion-title{
-            font-weight: bolder;
-            color:white;
-        }
+    ion-title{
+        font-weight: bolder;
+        color:white;
     }
-
-    .shuffle-button{
-        --background: #20948B;
-        --background-hover: #74dad1;
-        --background-hover-opacity: 0.5;
+    .item-fab-button{
+    --background:#20948B;
+    }
+}
+.add-button{
+    --background: #20948B;
+    --background-hover: #74dad1;
+    --background-hover-opacity: 0.5;
     position: absolute;
     bottom: 0%;
     left: 50%;
     transform: translate(-50%, 0%);
     -webkit-transform: translate(-50%, 0%);
     -ms-transform: translate(-50%, 0%);
-
-    }
-    
-.ion-item-select{
-    border:solid 0.3rem #20948B;
-    padding: 0 1rem;
 }
-    .shuffle-content{
-        border-right:solid 0.3rem #20948B;
-        border-top:solid 0.3rem #20948B;
-        border-left:solid 0.3rem #20948B;
-        .no-message{
-            text-align: center;
-            --font-family: "Segoe UI"
-        }
-    }
-} 
-
-.random-list-grid{
-    --background: white;
-    font-family: Noto Sans JP;
-    font-weight: 500;
-    padding: 0;
-    margin: 0;
-    ion-grid {
-        position: relative;
-        z-index: 3;
-    }
-    
-    ion-row{
-        margin: 0.4rem 0rem;
-    }
-    
-    ion-col{
-        
-        @media screen and (min-width:451px) { 
-            font-size: 0.9rem !important;
-            height: 8rem !important;
-        }
-        @media screen and (min-width:351px) and ( max-width:450px) { 
-            font-size: 0.8rem !important;
-            height: 7rem !important;
-        }
-        @media screen and (max-width:350px) { 
-            font-size: 0.6rem !important;
-            height: 6rem !important;
-        }
-
-        margin: 0 0.2rem;
-        padding: 0.2rem;
-        width: 5rem;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    .text-col{
-        border-radius: 0.3rem;
-        box-shadow: 0 0 0.3rem #20948B;
-        background-color: white;
-        text-align: center;
-    }
+.ShufflePage-content{
+    border-right:solid 0.3rem #20948B;
+	border-top:solid 0.3rem #20948B;
+	border-left:solid 0.3rem #20948B;
 }
-.reload-button{
-    --background: #20948B;
+.my-custom-class{
+    --height: 100%;
+    --width:100%
 }

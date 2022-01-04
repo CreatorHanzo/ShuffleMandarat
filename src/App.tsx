@@ -38,8 +38,8 @@ const App: React.FC = () => (
         <IonReactRouter>
             <IonTabs>
                 <IonRouterOutlet>
-                    <Route path="/home" component={ShufflePage} exact={true} />
-                    <Route path="/shuffle" component={Home} exact={true} />
+                    <Route path="/home" component={Home} exact={true} />
+                    <Route path="/shuffle" component={ShufflePage} exact={true} />
                     <Route
                         path="/"
                         render={() => <Redirect to="/shuffle" />}

@@ -64,75 +64,73 @@ const Tab3: React.FC = () => {
             text: 'テキスト6',
         },
     ]
- return (
-    <IonPage className="tab1-page">
-    <IonToolbar className="list-toolbar" mode="ios">
-        <IonTitle>HOME</IonTitle>
-    </IonToolbar>
-    <IonItem lines="none" className="list-search-item ion-no-padding">
-        <IonSearchbar
-            className="list-search-bar ion-no-padding"
-            value={searchText}
-            onIonChange={(e) => setSearchText(e.detail.value!)}
-            type="tel"
-        ></IonSearchbar>
-    </IonItem>
+    return (
+        <IonPage className="tab1-page">
+            <IonToolbar className="list-toolbar" mode="ios">
+                <IonTitle>HOME</IonTitle>
+            </IonToolbar>
+            <IonItem lines="none" className="list-search-item ion-no-padding">
+                <IonSearchbar
+                    className="list-search-bar ion-no-padding"
+                    value={searchText}
+                    onIonChange={(e) => setSearchText(e.detail.value!)}
+                    type="tel"
+                ></IonSearchbar>
+            </IonItem>
 
-    <IonContent className="tab1-content">
-        <IonList>
-            {
-                // eslint-disable-next-line array-callback-return
-                list1.map((value, i) => {
-                    const regexp = new RegExp(searchText, 'i')
-                    if (regexp.test(value.text)) {
-                        return (
-                            <IonItemSliding key={i.toString()}>
-                                <IonItemOptions side="end">
-                                    <IonItemOption
-                                        color="danger"
-                                        onClick={async () => {
-                                            setSelectedId(value.id)
-                                            setPopup(true)
-                                        }}
-                                    >
-                                        <IonIcon
-                                            slot="icon-only"
-                                            icon={trash}
-                                        />
-                                    </IonItemOption>
-                                </IonItemOptions>
-                                <IonItem className="yoso-item">
-                                    <IonLabel
-                                        key={i.toString()}
-                                        onClick={() => {
-                                            setName(value.text)
-                                            setIndex(i)
-                                            setShowAlert(true)
-                                        }}
-                                    >
-                                        {value.text}
-                                    </IonLabel>
-                                    <IonFabButton
-                                        size="small"
-                                        className="item-fab-button"
-                                        
-                                    >
-                                        <IonIcon
-                                            icon={chevronForwardOutline}
-                                        />
-                                    </IonFabButton>
-                                </IonItem>
-                            </IonItemSliding>
-                        )
+            <IonContent className="tab1-content">
+                <IonList>
+                    {
+                        // eslint-disable-next-line array-callback-return
+                        list1.map((value, i) => {
+                            const regexp = new RegExp(searchText, 'i')
+                            if (regexp.test(value.text)) {
+                                return (
+                                    <IonItemSliding key={i.toString()}>
+                                        <IonItemOptions side="end">
+                                            <IonItemOption
+                                                color="danger"
+                                                onClick={async () => {
+                                                    setSelectedId(value.id)
+                                                    setPopup(true)
+                                                }}
+                                            >
+                                                <IonIcon
+                                                    slot="icon-only"
+                                                    icon={trash}
+                                                />
+                                            </IonItemOption>
+                                        </IonItemOptions>
+                                        <IonItem className="yoso-item">
+                                            <IonLabel
+                                                key={i.toString()}
+                                                onClick={() => {
+                                                    setName(value.text)
+                                                    setIndex(i)
+                                                    setShowAlert(true)
+                                                }}
+                                            >
+                                                {value.text}
+                                            </IonLabel>
+                                            <IonFabButton
+                                                size="small"
+                                                className="item-fab-button"
+                                            >
+                                                <IonIcon
+                                                    icon={chevronForwardOutline}
+                                                />
+                                            </IonFabButton>
+                                        </IonItem>
+                                    </IonItemSliding>
+                                )
+                            }
+                        })
                     }
-                })
-            }
-        </IonList>
-        <IonItem lines="none" />
-    </IonContent>
-</IonPage>
- )
-
+                </IonList>
+                <IonItem lines="none" />
+            </IonContent>
+        </IonPage>
+    )
 }
 
 export default Tab3

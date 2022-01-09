@@ -26,7 +26,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Popup from '../components/Popup/Popup'
 const { Storage } = Plugins
 
-let list1: Array<CellModel> = [];
+let list1: Array<CellModel> = []
 
 const Home: React.FC = () => {
     const [list, setList] = useState<Array<CellModel>>([])
@@ -48,7 +48,7 @@ const Home: React.FC = () => {
 
     useEffect(() => {
         console.log(counter)
-        initialize();
+        initialize()
     })
 
     const initialize = async () => {

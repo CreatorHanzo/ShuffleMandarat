@@ -2,9 +2,10 @@ import React from 'react'
 import { IonFab, IonFabButton, IonIcon } from '@ionic/react'
 import { add } from 'ionicons/icons'
 import './AddButton.scss'
-import { Plugins } from '@capacitor/core'
+// import { Plugins } from '@capacitor/core'
 import { CellModel } from '../../models/CellModel'
-const { Storage } = Plugins
+// const { Storage } = Plugins
+import { Storage } from '@capacitor/storage'
 
 export interface AddButtonProps {}
 

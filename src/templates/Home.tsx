@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useLayoutEffect, useState } from 'react'
 import {
     IonSearchbar,
     IonPage,
@@ -21,10 +21,11 @@ import { add, chevronBack, chevronForwardOutline, trash } from 'ionicons/icons'
 import Mandart from '../components/Mandarat/Mandarat'
 import './Home.scss'
 import { CellModel } from '../models/CellModel'
-import { Plugins } from '@capacitor/core'
+// import { Plugins } from '@capacitor/core'
 import { useDispatch, useSelector } from 'react-redux'
 import Popup from '../components/Popup/Popup'
-const { Storage } = Plugins
+// const { Storage } = Plugins
+import { Storage } from '@capacitor/storage'
 
 let list1: Array<CellModel> = []
 
@@ -124,6 +125,7 @@ const Home: React.FC = () => {
                         // eslint-disable-next-line array-callback-return
                         list1.map((value, i) => {
                             const regexp = new RegExp(searchText, 'i')
+
                             if (regexp.test(value.text)) {
                                 return (
                                     <IonItemSliding key={i.toString()}>
@@ -190,7 +192,6 @@ const Home: React.FC = () => {
             </IonContent>
             <IonModal
                 isOpen={showModal}
-                cssClass="my-custom-class"
                 onDidDismiss={() => setShowModal(false)}
             >
                 <Mandart />

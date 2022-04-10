@@ -18,8 +18,10 @@ import {
 import './ShufflePage.scss'
 import { CellModel } from '../models/CellModel'
 import { shuffleOutline } from 'ionicons/icons'
-import { Plugins } from '@capacitor/core'
-const { Storage } = Plugins
+// import { Plugins } from '@capacitor/core'
+// const { Storage } = Plugins
+import { Storage } from '@capacitor/storage'
+
 let list1: Array<CellModel> = []
 const numList: number[] = [2, 3, 4, 5, 6, 7, 8, 9]
 

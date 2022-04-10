@@ -211,7 +211,6 @@ export const Mandarat: React.FC<MandaratProps> = () => {
             </IonButton>
             <IonModal
                 isOpen={counter.modal99Reducer}
-                cssClass="my-custom-class"
                 onDidDismiss={() => {
                     dispatch({
                         type: 'modal99Colse',

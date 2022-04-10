@@ -8,6 +8,7 @@ import {
     IonTabBar,
     IonTabButton,
     IonTabs,
+    setupIonicReact,
 } from '@ionic/react'
 import { IonReactRouter } from '@ionic/react-router'
 import { home, shuffle } from 'ionicons/icons'
@@ -32,7 +33,9 @@ import '@ionic/react/css/display.css'
 
 /* Theme variables */
 import './theme/variables.css'
-
+setupIonicReact({
+    mode: 'md',
+})
 const App: React.FC = () => (
     <IonApp>
         <IonReactRouter>

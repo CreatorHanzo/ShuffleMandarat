@@ -22,7 +22,6 @@ export const ChildPopover: React.FC<ChildPopoverProps> = ({
 }) => {
     return (
         <IonPopover
-            cssClass="my-popo-child-class"
             event={event}
             isOpen={isOpen}
             onDidDismiss={() => setShowPopover()}

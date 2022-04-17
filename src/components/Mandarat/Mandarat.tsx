@@ -106,11 +106,11 @@ export const Mandarat: React.FC<MandaratProps> = () => {
     }
 
     const deleteChild = async (deleteId: number | undefined) => {
-        dispatch({
-            type: 'DELETE',
-            list: list1,
-            delIndex: deleteId,
-        })
+        // dispatch({
+        //     type: 'DELETE',
+        //     list: list1,
+        //     delIndex: deleteId,
+        // })
         for (let i = list1.length - 1; i >= 0; i--) {
             if (deleteId === list1[i].parentId) {
                 await deleteChild(list1[i].id)

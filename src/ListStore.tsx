@@ -25,9 +25,19 @@ export const listReducer = (state = allData.initList, action: any) => {
             return addReduce(state, action)
         case 'DELETE':
             return deleteReduce(state, action)
+        case 'COPY':
+            return copyList(state, action)
         default:
             return state
     }
+}
+
+export const copyList = (
+    state: CellModel[],
+    action: { type: string; nowList: CellModel[] }
+) => {
+    let now = action.nowList.slice()
+    return now
 }
 
 export const changeReduce = (
@@ -71,6 +81,12 @@ export const mListReducer = (state = allData.mList, action: any) => {
     }
 }
 
+/**
+ * 子要素に移動する
+ * @param state
+ * @param action
+ * @returns 親要素と子要素
+ */
 export const setMListReducer = (
     state: { parent: CellModel; children: Array<CellModel> },
     action: { type: string; parent: CellModel; children: CellModel[] }

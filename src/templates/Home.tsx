@@ -16,6 +16,7 @@ import {
     IonItemSliding,
     IonTitle,
     IonToolbar,
+    useIonViewWillEnter,
 } from '@ionic/react'
 import { add, chevronBack, chevronForwardOutline, trash } from 'ionicons/icons'
 import Mandart from '../components/Mandarat/Mandarat'
@@ -30,7 +31,7 @@ import { Storage } from '@capacitor/storage'
 let list1: Array<CellModel> = []
 
 const Home: React.FC = () => {
-    const [list, setList] = useState<Array<CellModel>>([])
+    const [list, setList] = useState<CellModel[]>([])
     const [searchText, setSearchText] = useState('')
     const [showModal, setShowModal] = useState(false)
     const [showAlert, setShowAlert] = useState(false)
@@ -47,9 +48,17 @@ const Home: React.FC = () => {
     )
     const dispatch = useDispatch()
 
+    useIonViewWillEnter(async () => {
+        // let a:CellModel[]=[]
+        // await Storage.set({key:'allCell', value:JSON.stringify(a)})
+        await Storage.get({ key: 'allCell' }).then((data) => {
+            setList(JSON.parse(data.value!))
+        })
+        console.log('表示前')
+    })
+
     useEffect(() => {
-        console.log(counter)
-        initialize()
+        console.log('レンダリング後')
     })
 
     const initialize = async () => {
@@ -76,34 +85,34 @@ const Home: React.FC = () => {
             id: maxId,
             text: 'New',
         }
-        list1.push(topParent)
+        let dumyList = [...list]
+        dumyList.push(topParent)
 
         await Storage.set({
             key: 'allCell',
-            value: JSON.stringify(list1),
+            value: JSON.stringify(dumyList),
         })
         dispatch({ type: 'ADD', parentId: 0, maxId: maxId })
-        const listd1 = [...list]
-        setList(listd1)
+        // const listd1 = [...list]
+        setList(dumyList)
     }
     const deleteChild = async (deleteId: number | undefined) => {
         dispatch({
             type: 'DELETE',
-            list: list1,
+            list: list,
             delIndex: deleteId,
         })
 
-        for (let i = list1.length - 1; i >= 0; i--) {
-            if (deleteId === list1[i].parentId) {
-                await deleteChild(list1[i].id)
-                list1.splice(i, 1)
+        for (let i = list.length - 1; i >= 0; i--) {
+            if (deleteId === list[i].parentId) {
+                await deleteChild(list[i].id)
+                list.splice(i, 1)
             }
         }
         await Storage.set({
             key: 'allCell',
-            value: JSON.stringify(list1),
+            value: JSON.stringify(list),
         })
-        setList(list1)
     }
 
     return (
@@ -123,7 +132,7 @@ const Home: React.FC = () => {
                 <IonList>
                     {
                         // eslint-disable-next-line array-callback-return
-                        list1.map((value, i) => {
+                        list.map((value, i) => {
                             const regexp = new RegExp(searchText, 'i')
 
                             if (regexp.test(value.text)) {
@@ -158,8 +167,9 @@ const Home: React.FC = () => {
                                                 size="small"
                                                 className="item-fab-button"
                                                 onClick={() => {
+                                                    // マンダラートへ移動
                                                     let children1: Array<CellModel> = []
-                                                    list1.forEach((child) => {
+                                                    list.forEach((child) => {
                                                         if (
                                                             child.parentId ===
                                                             value.id
@@ -195,7 +205,15 @@ const Home: React.FC = () => {
                 onDidDismiss={() => setShowModal(false)}
             >
                 <Mandart />
-                <IonButton fill="clear" onClick={() => setShowModal(false)}>
+                <IonButton
+                    fill="clear"
+                    onClick={async () => {
+                        await Storage.get({ key: 'allCell' }).then((data) => {
+                            setList(JSON.parse(data.value!))
+                        })
+                        setShowModal(false)
+                    }}
+                >
                     <IonIcon slot="start" icon={chevronBack} />
                     Home
                 </IonButton>
@@ -219,9 +237,10 @@ const Home: React.FC = () => {
                     setPopup(false)
                 }}
                 processing={async () => {
-                    for (let i = list1.length - 1; i >= 0; i--) {
-                        if (selectedId === list1[i].id) {
-                            list1.splice(i, 1)
+                    // TODO 全ての要素が消えていまう
+                    for (let i = list.length - 1; i >= 0; i--) {
+                        if (selectedId === list[i].id) {
+                            list.splice(i, 1)
                         }
                     }
                     await deleteChild(selectedId)
@@ -252,11 +271,11 @@ const Home: React.FC = () => {
                     {
                         text: 'Ok',
                         handler: async (data) => {
-                            list1[index].text = data.name
-                            dispatch({ type: 'CHANGE', list: list1 })
+                            list[index].text = data.name
+                            dispatch({ type: 'CHANGE', list: list })
                             await Storage.set({
                                 key: 'allCell',
-                                value: JSON.stringify(list1),
+                                value: JSON.stringify(list),
                             })
                         },
                     },

@@ -22,13 +22,9 @@ import { add, chevronBack, chevronForwardOutline, trash } from 'ionicons/icons'
 import Mandart from '../components/Mandarat/Mandarat'
 import './Home.scss'
 import { CellModel } from '../models/CellModel'
-// import { Plugins } from '@capacitor/core'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import Popup from '../components/Popup/Popup'
-// const { Storage } = Plugins
 import { Storage } from '@capacitor/storage'
-
-let list1: Array<CellModel> = []
 
 const Home: React.FC = () => {
     const [list, setList] = useState<CellModel[]>([])
@@ -40,33 +36,22 @@ const Home: React.FC = () => {
     const [popup, setPopup] = useState(false)
     const [selectedId, setSelectedId] = useState<number>()
 
-    const counter = useSelector(
-        (state: {
-            listReducer: CellModel[]
-            mListReducer: { parent: CellModel; children: Array<CellModel> }
-        }) => state
-    )
     const dispatch = useDispatch()
 
+    // ここは問題ない
     useIonViewWillEnter(async () => {
-        // let a:CellModel[]=[]
-        // await Storage.set({key:'allCell', value:JSON.stringify(a)})
         await Storage.get({ key: 'allCell' }).then((data) => {
-            setList(JSON.parse(data.value!))
+            if (data.value) {
+                setList(JSON.parse(data.value))
+            } else {
+                setList([])
+            }
         })
-        console.log('表示前')
     })
 
     useEffect(() => {
         console.log('レンダリング後')
     })
-
-    const initialize = async () => {
-        const allCellStr = await Storage.get({ key: 'allCell' })
-        if (JSON.parse(allCellStr.value!)) {
-            list1 = JSON.parse(allCellStr.value!)
-        }
-    }
 
     const addTopParent = async () => {
         const maxIdStr = await Storage.get({ key: 'maxId' })
@@ -137,7 +122,7 @@ const Home: React.FC = () => {
 
                             if (regexp.test(value.text)) {
                                 return (
-                                    <IonItemSliding key={i.toString()}>
+                                    <IonItemSliding key={i}>
                                         <IonItemOptions side="end">
                                             <IonItemOption
                                                 color="danger"

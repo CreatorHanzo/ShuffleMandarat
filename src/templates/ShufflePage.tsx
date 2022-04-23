@@ -289,7 +289,7 @@ const ShufflePage: React.FC = () => {
                 onClick={() => randomSelect(list1, showNumber)}
             >
                 <IonIcon slot="start" icon={shuffleOutline} />
-                Shuffule
+                Shuffle
             </IonButton>
         </IonPage>
     )

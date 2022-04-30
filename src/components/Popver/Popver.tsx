@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { IonIcon, IonItem, IonPopover } from '@ionic/react'
 import { chevronBack, pencilOutline } from 'ionicons/icons'
-
+import './popver.scss'
 export interface PopverPops {
     isOpen: boolean
     event: any
@@ -33,7 +33,7 @@ export const Popver: React.FC<PopverPops> = ({
                 }}
                 disabled={parentId === 0}
             >
-                <IonIcon icon={chevronBack}></IonIcon>
+                <IonIcon className="back" icon={chevronBack}></IonIcon>
                 移動
             </IonItem>
             <IonItem
@@ -42,7 +42,7 @@ export const Popver: React.FC<PopverPops> = ({
                     editParent()
                 }}
             >
-                <IonIcon icon={pencilOutline}></IonIcon>
+                <IonIcon className="edit" icon={pencilOutline}></IonIcon>
                 編集
             </IonItem>
         </IonPopover>

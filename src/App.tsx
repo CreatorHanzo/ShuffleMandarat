@@ -49,18 +49,18 @@ const App: React.FC = () => (
                     />
                     <Route
                         path="/"
-                        render={() => <Redirect to="/shuffle" />}
+                        render={() => <Redirect to="/home" />}
                         exact={true}
                     />
                 </IonRouterOutlet>
                 <IonTabBar slot="bottom">
-                    <IonTabButton tab="shuffle" href="/shuffle">
-                        <IonIcon icon={shuffle} />
-                        <IonLabel>shuffle</IonLabel>
-                    </IonTabButton>
                     <IonTabButton tab="home" href="/home">
                         <IonIcon icon={home} />
                         <IonLabel>home</IonLabel>
+                    </IonTabButton>
+                    <IonTabButton tab="shuffle" href="/shuffle">
+                        <IonIcon icon={shuffle} />
+                        <IonLabel>shuffle</IonLabel>
                     </IonTabButton>
                 </IonTabBar>
             </IonTabs>

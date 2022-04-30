@@ -18,8 +18,6 @@ import {
 import './ShufflePage.scss'
 import { CellModel } from '../models/CellModel'
 import { shuffleOutline } from 'ionicons/icons'
-// import { Plugins } from '@capacitor/core'
-// const { Storage } = Plugins
 import { Storage } from '@capacitor/storage'
 
 let list1: Array<CellModel> = []
@@ -31,6 +29,7 @@ const ShufflePage: React.FC = () => {
         (state: { randomListReducer: CellModel[] }) => state
     )
     const dispatch = useDispatch()
+
     useEffect(() => {
         initialize()
     })
@@ -281,16 +280,16 @@ const ShufflePage: React.FC = () => {
                         })()}
                     </IonRow>
                 </IonGrid>
+                <IonButton
+                    className="shuffle-button"
+                    shape="round"
+                    mode="ios"
+                    onClick={() => randomSelect(list1, showNumber)}
+                >
+                    <IonIcon slot="start" icon={shuffleOutline} />
+                    Shuffle
+                </IonButton>
             </IonContent>
-            <IonButton
-                className="shuffle-button"
-                shape="round"
-                mode="ios"
-                onClick={() => randomSelect(list1, showNumber)}
-            >
-                <IonIcon slot="start" icon={shuffleOutline} />
-                Shuffle
-            </IonButton>
         </IonPage>
     )
 }

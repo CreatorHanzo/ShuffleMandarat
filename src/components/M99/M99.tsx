@@ -4,9 +4,6 @@ import './M99.scss'
 import M33 from '../M33/M33'
 import { useDispatch, useSelector } from 'react-redux'
 import { CellModel } from '../../models/CellModel'
-// import { Plugins } from '@capacitor/core'
-
-// const { Storage } = Plugins
 import { Storage } from '@capacitor/storage'
 
 export interface M99Props {}

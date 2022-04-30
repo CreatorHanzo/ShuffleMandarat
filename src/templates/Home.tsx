@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useState } from 'react'
+import React, { useState } from 'react'
 import {
     IonSearchbar,
     IonPage,
@@ -17,6 +17,7 @@ import {
     IonTitle,
     IonToolbar,
     useIonViewWillEnter,
+    useIonViewWillLeave,
 } from '@ionic/react'
 import { add, chevronBack, chevronForwardOutline, trash } from 'ionicons/icons'
 import Mandart from '../components/Mandarat/Mandarat'
@@ -25,6 +26,7 @@ import { CellModel } from '../models/CellModel'
 import { useDispatch } from 'react-redux'
 import Popup from '../components/Popup/Popup'
 import { Storage } from '@capacitor/storage'
+import { AdMobPlus, BannerAd } from '@admob-plus/capacitor'
 
 const Home: React.FC = () => {
     const [list, setList] = useState<CellModel[]>([])
@@ -36,21 +38,32 @@ const Home: React.FC = () => {
     const [popup, setPopup] = useState(false)
     const [selectedId, setSelectedId] = useState<number>()
 
+    const banner = new BannerAd({
+        adUnitId: 'ca-app-pub-3940256099942544/6300978111',
+    })
+
     const dispatch = useDispatch()
 
-    // ここは問題ない
     useIonViewWillEnter(async () => {
         await Storage.get({ key: 'allCell' }).then((data) => {
+            // データがなければ空を入れる
             if (data.value) {
                 setList(JSON.parse(data.value))
             } else {
                 setList([])
             }
         })
+
+        // 広告表示
+        await banner.show()
     })
 
-    useEffect(() => {
-        console.log('レンダリング後')
+    useIonViewWillLeave(async () => {
+        AdMobPlus.addListener('banner.impression', async () => {
+            // たまに消えるので、消えたら表示
+            await banner.hide()
+            await banner.show()
+        })
     })
 
     const addTopParent = async () => {

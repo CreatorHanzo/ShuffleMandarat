@@ -13,15 +13,14 @@ import {
 import React, { useEffect, useState } from 'react'
 import './Mandarat.scss'
 import { CellModel } from '../../models/CellModel'
-import { Plugins } from '@capacitor/core'
 import { useDispatch, useSelector } from 'react-redux'
 import { Popver } from '../Popver/Popver'
 import { ChildPopover } from '../Popver/ChildPopover'
 import { Popup } from '../Popup/Popup'
 import { add, chevronBack, chevronForward } from 'ionicons/icons'
 import { M99 } from '../M99/M99'
+import { Storage } from '@capacitor/storage'
 
-const { Storage } = Plugins
 let list1: Array<CellModel> = []
 
 export interface MandaratProps {}
@@ -52,7 +51,6 @@ export const Mandarat: React.FC<MandaratProps> = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        console.log(list)
         initialize()
     })
     const initialize = async () => {
@@ -106,11 +104,6 @@ export const Mandarat: React.FC<MandaratProps> = () => {
     }
 
     const deleteChild = async (deleteId: number | undefined) => {
-        // dispatch({
-        //     type: 'DELETE',
-        //     list: list1,
-        //     delIndex: deleteId,
-        // })
         for (let i = list1.length - 1; i >= 0; i--) {
             if (deleteId === list1[i].parentId) {
                 await deleteChild(list1[i].id)
@@ -200,7 +193,6 @@ export const Mandarat: React.FC<MandaratProps> = () => {
                             list99.push()
                         }
                     }
-                    console.log(counter.modal99Reducer)
                     dispatch({ type: 'm99create', list99: list99 })
                     dispatch({
                         type: 'modal99Show',
